@@ -1,9 +1,9 @@
 <?php
 
-include 'aha.php'
+include 'aha.php';
 
 $stmt = $PDO->query ("SELECT name,email FROM usuarios");
-qhile ($user = $stmt->fetch object()){
-    echo $user name . "-" . $user->email. "<br>";
+while ($user = $stmt->fetch(PDO::FETCH_OBJ)){
+    echo $user-> name . "-" . $user->email. "<br>";
 }
 ?>

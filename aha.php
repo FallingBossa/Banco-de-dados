@@ -4,13 +4,13 @@ $host = 'localhost';
 $db   = 'db_loja';
 $user = 'root';
 $pass = 'usbw';
-$port = '3306';
+$port = '3307';
 
 $dsn = "mysql:host=$host;dbname=$db;port=$port;charset=utf8mb4";
 
 try {
-    $conn = new PDO($dsn, $user, $pass);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $PDO = new PDO($dsn, $user, $pass);
+    $PDO->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $modelo  = $_POST['modelo'];
@@ -18,7 +18,7 @@ try {
         $preco   = $_POST['preco'];
 
         $sql = "INSERT INTO camisetas (modelo, tamanho, preco) VALUES (:m, :t, :p)";
-        $stmt = $conn->prepare($sql);
+        $stmt = $PDO->prepare($sql);
         $stmt->execute([':m' => $modelo, ':t' => $tamanho, ':p' => $preco]);
 
         echo "<p style='color: green;'>Camiseta salva com sucesso!</p>";
@@ -27,6 +27,13 @@ try {
     echo "Erro: " . $e->getMessage();
 }
 
+function consultar() {
+    global $PDO; 
+    $stmt = $PDO->query("SELECT modelo, tamanho, preco FROM camisetas");
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        echo "Camiseta: " . $row['modelo'] . " - " . $row['tamanho'] . " - R$ " . $row['preco'] . "<br>";
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -53,5 +60,8 @@ try {
 
 <button type="submit"> Solicitar Camiseta</button>
     </form>
+    <?php 
+    consultar();
+    ?>
 </body>
 </html>
