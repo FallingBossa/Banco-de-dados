@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['id_excluir'])) {
         $sql = "DELETE FROM camisetas WHERE id = :id";
         $stmt = $PDO->prepare($sql);
         $stmt->execute([':id' => $id]);
-        echo "Sucesso"; 2
+        echo "Sucesso"; 
     } catch(Exception $e) {
         echo "Erro ao excluir";
     }
@@ -122,5 +122,44 @@ function consultar() {
         });
     });
     </script>
-</body>
+    <div style="margin-top: 30px;">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mymodal">
+            Enviar
+        </button>
+    </div>
+
+    <div class="modal fade" id="mymodal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalLabel" style="color: #333;">Formulário</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                
+                <form method="POST" action="">
+                    <div class="modal-body" style="color: #333; text-align: left;">
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Nome Completo</label>
+                            <input type="text" class="form-control" name="campo_nome" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">E-mail de Contato</label>
+                            <input type="email" class="form-control" name="campo_email" required>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                        <button type="submit" class="btn btn-success">Enviar Dados</button>
+                    </div>
+                </form>
+                
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
 </html>             
