@@ -102,7 +102,7 @@ function consultar() {
     <script>
     $(document).ready(function() {
         $('.excluir').click(function() {
-            var id_camiseta = $(this).attr("data-id"); // Pega o id do botão
+            var id_camiseta = $(this).attr("data-id"); 
             
             if(confirm("Deseja realmente excluir esta camiseta?")) {
                 $.ajax({
